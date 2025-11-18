@@ -4,11 +4,11 @@ import org.employeemanagement.exception.IdNotFoundException;
 import org.employeemanagement.exception.InvalidInputException;
 import org.employeemanagement.repository.interfaces.EmployeeRepository;
 import org.employeemanagement.service.EmployeeServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class EmployeeTest {
 
     @Mock
@@ -26,11 +27,6 @@ public class EmployeeTest {
 
     @InjectMocks
     private EmployeeServiceImpl employeeService;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     /**
      * Test the addition of a valid employee.
@@ -55,7 +51,7 @@ public class EmployeeTest {
         Employee employee = createEmployee(null, "", "douaa.doe@example.com", "securePassword", "IT", "Developer", "123 Main St", "1234567890", 60000.00, 10, "123-45-6789");
 
         Exception exception = assertThrows(InvalidInputException.class, () -> employeeService.addEmployee(employee));
-        assertEquals("Invalid input: Employee name cannot be empty", exception.getMessage());
+        assertEquals("Invalid input: Employee name cannot be empty.", exception.getMessage());
     }
 
     /**
@@ -66,7 +62,7 @@ public class EmployeeTest {
         Employee employee = createEmployee(null, "Douaa Doe", "", "securePassword", "IT", "Developer", "123 Main St", "1234567890", 60000.00, 10, "123-45-6789");
 
         Exception exception = assertThrows(InvalidInputException.class, () -> employeeService.addEmployee(employee));
-        assertEquals("Invalid input: Employee email cannot be empty", exception.getMessage());
+        assertEquals("Invalid input: Employee email cannot be empty.", exception.getMessage());
     }
 
     /**
@@ -154,7 +150,7 @@ public class EmployeeTest {
      */
     @Test
     public void testDeleteEmployee() {
-        doNothing().when(employeeRepository).delete(eq(1L));
+        doNothing().when(employeeRepository).delete(1L);
 
         assertDoesNotThrow(() -> employeeService.deleteEmployee(1L));
         verify(employeeRepository).delete(1L);
@@ -165,10 +161,10 @@ public class EmployeeTest {
      */
     @Test
     public void testDeleteNonExistentEmployee() {
-        doThrow(new DatabaseOperationException("Failed to delete the employee.")).when(employeeRepository).delete(eq(999L));
+        doThrow(new DatabaseOperationException("Failed to delete the employee.")).when(employeeRepository).delete(999L);
 
         Exception exception = assertThrows(DatabaseOperationException.class, () -> employeeService.deleteEmployee(999L));
-        assertEquals("A database error occurred: Failed to delete the employee", exception.getMessage());
+        assertEquals("A database error occurred: Failed to delete the employee.", exception.getMessage());
     }
 
     /**

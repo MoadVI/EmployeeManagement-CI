@@ -1,11 +1,11 @@
 import org.employeemanagement.entities.ApplicationJobOffer;
 import org.employeemanagement.repository.interfaces.ApplicationJobOfferRepository;
 import org.employeemanagement.service.ApplicationJobOfferServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import static org.mockito.Mockito.*;
 /**
  * Unit tests for the ApplicationJobOfferServiceImpl class.
  */
+@ExtendWith(MockitoExtension.class)
 public class ApplicationJobOfferServiceTest {
 
     @Mock
@@ -24,14 +25,6 @@ public class ApplicationJobOfferServiceTest {
 
     @InjectMocks
     private ApplicationJobOfferServiceImpl applicationJobOfferService;
-
-    /**
-     * Initializes mocks before each test case.
-     */
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     /**
      * Tests the save method of the ApplicationJobOfferService.
