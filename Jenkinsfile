@@ -47,9 +47,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+                        archiveArtifacts artifacts: 'target/*.war', allowEmptyArchive: true
                     } else {
-                        archiveArtifacts artifacts: 'target\\*.jar', allowEmptyArchive: true
+                        archiveArtifacts artifacts: 'target\\*.war', allowEmptyArchive: true
                     }
                 }
             }
