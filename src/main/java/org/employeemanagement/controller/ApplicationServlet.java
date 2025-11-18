@@ -3,6 +3,7 @@ package org.employeemanagement.controller;
 import org.employeemanagement.entities.Application;
 import org.employeemanagement.entities.ApplicationJobOffer;
 import org.employeemanagement.entities.JobOffer;
+import org.employeemanagement.repository.ApplicationJobOfferRepositoryImpl;
 import org.employeemanagement.repository.ApplicationRepositoryImpl;
 import org.employeemanagement.repository.JobOffreRepositoryImpl;
 import org.employeemanagement.repository.interfaces.ApplicationRepository;
@@ -41,7 +42,7 @@ public class ApplicationServlet extends HttpServlet {
         ApplicationRepository applicationRepository = new ApplicationRepositoryImpl();
         applicationService = new ApplicationServiceImpl(applicationRepository);
         jobOffreService = new JobOffreServiceImpl(new JobOffreRepositoryImpl());
-        applicationJobOfferService = new ApplicationJobOfferServiceImpl();
+        applicationJobOfferService = new ApplicationJobOfferServiceImpl(new ApplicationJobOfferRepositoryImpl());
     }
 
     @Override

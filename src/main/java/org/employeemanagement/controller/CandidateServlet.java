@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.employeemanagement.entities.Application;
 import org.employeemanagement.entities.ApplicationJobOffer;
+import org.employeemanagement.repository.ApplicationJobOfferRepositoryImpl;
 import org.employeemanagement.repository.ApplicationRepositoryImpl;
 import org.employeemanagement.service.ApplicationJobOfferServiceImpl;
 import org.employeemanagement.service.ApplicationServiceImpl;
@@ -26,7 +27,7 @@ public class CandidateServlet extends HttpServlet {
     @Override
     public void init() {
         applicationService = new ApplicationServiceImpl(new ApplicationRepositoryImpl());
-        applicationJobOfferService = new ApplicationJobOfferServiceImpl();
+        applicationJobOfferService = new ApplicationJobOfferServiceImpl(new ApplicationJobOfferRepositoryImpl());
     }
 
 

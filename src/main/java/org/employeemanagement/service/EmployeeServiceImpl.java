@@ -16,7 +16,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = new EmployeeRepositoryImpl();
+        this.employeeRepository = employeeRepository;
     }
     @Override
     public Employee addEmployee(Employee employee) {
