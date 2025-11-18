@@ -6,6 +6,10 @@ pipeline {
         jdk 'JDK-17'
     }
 
+    environment {
+        SONARQUBE = 'SonarQube'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -13,25 +17,34 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                sh 'mvn -B clean package'
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv("${SONARQUBE}") {
+                    sh 'mvn sonar:sonar'
+                }
             }
         }
 
         stage('Archive Artifacts') {
             steps {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                junit 'target/surefire-reports/*.xml'
             }
         }
     }
 
     post {
         success {
-            echo "Build completed successfully."
+            echo "Build, test and SonarQube analysis completed successfully."
         }
         failure {
-            echo "Build failed."
+            echo "FAILURE"
         }
     }
 }
