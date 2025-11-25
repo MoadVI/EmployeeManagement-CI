@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    tool {
+        maven 'Maven-3.9.11'
+        jdk 'JDK-17'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Archive artifacts') {
+            archiveArtifact artifacts: 'target/*.war', fingerprint: true
+            junit 'target/surefire-report/*.xml'
+        }
+    }
+}
