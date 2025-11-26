@@ -6,6 +6,10 @@ pipeline {
         jdk 'JDK-17'
     }
 
+    environment {
+        SONARQUBE = 'SonarQube'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -16,6 +20,13 @@ pipeline {
         stage('Build & Test') {
             steps {
                 sh 'mvn clean package'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv("${SONARQUBE}") {
+                sh 'mvn clean verify sonar:sonar'}
             }
         }
 
