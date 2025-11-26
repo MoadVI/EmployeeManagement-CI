@@ -54,8 +54,12 @@ public class ApplicationServlet extends HttpServlet {
             request.getRequestDispatcher("view/applications.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.getSession().setAttribute("errorMessage", "Error while displaying job offers: " + e.getMessage());
-            response.sendRedirect(request.getContextPath() + "/error-page.jsp");
+            try {
+                request.getSession().setAttribute("errorMessage", "Error while displaying job offers: " + e.getMessage());
+                response.sendRedirect(request.getContextPath() + "/error-page.jsp");
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
         }
     }
 

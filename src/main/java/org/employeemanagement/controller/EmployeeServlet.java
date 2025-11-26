@@ -18,7 +18,7 @@ import java.util.List;
 
 @WebServlet("/employee")
 public class EmployeeServlet extends HttpServlet {
-private EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
+    private final EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
     private EmployeeService employeeService = new EmployeeServiceImpl(employeeRepository);
 
     @Override
