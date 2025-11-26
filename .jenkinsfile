@@ -22,7 +22,7 @@ pipeline {
         stage('Archive Artifacts') {
             steps {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
-                junit 'target/surefire-report/*.xml'
+                junit 'target/surefire-reports/*.xml'
             }
         }
     }
